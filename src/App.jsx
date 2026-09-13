@@ -103,13 +103,13 @@ function App() {
 
       if (['mct', 'dump', 'txt'].includes(outputFormat)) {
         const outText = generateMct(tagData);
-        outBlob = new Blob([outText], { type: 'text/plain' });
+        outBlob = new Blob([outText], { type: 'application/octet-stream' });
       } else if (['bin', 'dmp'].includes(outputFormat)) {
         const outBuffer = generateBin(tagData);
         outBlob = new Blob([outBuffer], { type: 'application/octet-stream' });
       } else if (outputFormat === 'nfc') {
         const outText = generateNfc(tagData);
-        outBlob = new Blob([outText], { type: 'text/plain' });
+        outBlob = new Blob([outText], { type: 'application/octet-stream' });
       }
 
       // 3. Expose generated file for download

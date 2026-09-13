@@ -236,7 +236,7 @@ export function generateBin(tagData) {
 
 export function generateNfc(tagData) {
   let nfc = "Filetype: Flipper NFC device\nVersion: 4\n";
-  nfc += "# Device type can be ISO14443-3A, ISO14443-3B, ISO14443-4A, ISO14443-4B, ISO15693-3, FeliCa, NTAG/Ultralight, Mifare Classic, Mifare DESFire, SLIX, ST25TB\n";
+  nfc += "# Device type can be ISO14443-3A, ISO14443-3B, ISO14443-4A, ISO14443-4B, ISO15693-3, FeliCa, NTAG/Ultralight, Mifare Classic, Mifare Plus, Mifare DESFire, SLIX, ST25TB, NTAG4xx, Type 4 Tag, EMV\n";
   
   if (tagData.cardType === "ST25TB") {
     nfc += "Device type: ST25TB\n";
@@ -250,10 +250,12 @@ export function generateNfc(tagData) {
     nfc += "System OTP Block: FF FF FF FE\n";
   } else {
     nfc += "Device type: Mifare Classic\n";
-    nfc += "# UID, ATQA and SAK are common for all formats\n";
+    nfc += "# UID is common for all formats\n";
     nfc += `UID: ${addSpacesToHex(tagData.uid)}\n`;
+    nfc += "# ISO14443-3A specific data\n";
     nfc += `ATQA: ${addSpacesToHex(tagData.atqa)}\n`;
     nfc += `SAK: ${addSpacesToHex(tagData.sak)}\n`;
+    nfc += "# Mifare Classic specific data\n";
     nfc += `Mifare Classic type: ${tagData.cardType}\n`;
     nfc += "Data format version: 2\n";
     nfc += "# Mifare Classic blocks, '??' means unknown data\n";
