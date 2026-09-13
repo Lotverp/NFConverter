@@ -133,7 +133,7 @@ function App() {
         <div className="title-container">
           <h1>NFC File Converter</h1>
           <a
-            href="https://github.com/Lotverp/FlipperConvertMCT"
+            href="https://github.com/Lotverp/NFConverter"
             target="_blank"
             rel="noopener noreferrer"
             className="github-link"

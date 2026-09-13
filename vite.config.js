@@ -5,5 +5,5 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   // GitHub Pages base URL: usually the repository name
-  base: '/FlipperConvertMCT/',
+  base: '/NFConverter/',
 });
