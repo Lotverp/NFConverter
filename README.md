@@ -1,48 +1,44 @@
-# FlipperConvertMCT
-Tool able to convert Mifare CLassic (mini, 1k, 4k) (uid 4/7 byte) and ST25TB 4k MCT, DUMP, or binary DMP files to flipper zero .nfc files.
+# Universal NFC Web Converter 🐬
 
-## Usage:
+A beautiful, fully client-side web application designed to convert various NFC dump formats natively in your browser. Perfect for Flipper Zero enthusiasts and RFID researchers.
 
-### mfclassic_bin_to_nfc.py:
-```
-python3 mfclassic_bin_to_nfc.py [-h] -i INPUT -o OUTPUT [--uid UID] [--atqa ATQA] [--sak SAK]
+## Features ✨
 
-Convert a Mifare Classic dump to a .nfc file for Flipper Zero
+- **N-to-N Conversion**: Convert seamlessly between `.nfc`, `.mct`, `.dump`, `.txt`, `.bin`, and `.dmp`.
+- **100% Offline & Secure**: All conversions happen directly in your browser. No files are ever uploaded to a remote server.
+- **Auto-Detection**: The app automatically identifies your input file based on its extension.
+- **Premium Interface**: A sleek, dark-mode GUI with glassmorphism effects and drag-and-drop support.
+- **Responsive**: Works on desktop and mobile browsers.
 
-options:
-  -h, --help            show this help message and exit
-  -i INPUT, --input INPUT
-                        Path to the .dmp file
-  -o OUTPUT, --output OUTPUT
-                        Output path for the .nfc file
-  --uid UID             Custom UID (e.g. FE:3B:17:86)
-```
+## How to use 🚀
 
-### mct_to_nfc.py:
-```
-python3 mct_to_nfc.py [-h] -i INPUT_PATH -o OUTPUT_PATH [--uid UID] [--atqa ATQA] [--sak SAK]
+1. Open the [Web App](#) *(Insert your GitHub Pages link here)*
+2. Drag and drop your dump file into the upload zone.
+3. Select your desired output format from the dropdown.
+4. Click **Convert File**. The new file will be downloaded instantly.
 
-Convert Mifare Classic dump (.mct/.dump) to .nfc file for Flipper Zero
+## Local Development 💻
 
-options:
-  -h, --help            show this help message and exit
-  -i INPUT_PATH, --input-path INPUT_PATH
-                        Input dump file (.mct or .dump)
-  -o OUTPUT_PATH, --output-path OUTPUT_PATH
-                        Output .nfc file
-  --uid UID             Custom UID (e.g. FE:3B:17:86)
-```
+To run the converter locally on your machine:
 
-### mikai_to_nfc.py:
-```
-python3: mikai_to_nfc.py [-h] -i INPUT -o OUTPUT
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/your-username/FlipperConvertMCT.git
+   cd FlipperConvertMCT
+   ```
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-Binary Mikai dump converter to Flipper Zero .nfc
+## Built With 🛠️
+- **React.js** for the UI logic
+- **Vite** for the build tooling
+- **Vanilla CSS** for the custom responsive design
 
-options:
-  -h, --help            show this help message and exit
-  -i INPUT, --input INPUT
-                        Input binary dump file
-  -o OUTPUT, --output OUTPUT
-                        Output .nfc file
-```
+---
+*Based on the original python CLI converter scripts. Refactored into a universal web-app.*
