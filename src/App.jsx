@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { 
-  parseMct, parseBin, parseNfc, 
-  generateMct, generateBin, generateNfc 
+import {
+  parseMct, parseBin, parseNfc,
+  generateMct, generateBin, generateNfc
 } from './utils/converters';
 import { detectInputFormat, OUTPUT_OPTIONS } from './utils/constants';
 import './index.css';
@@ -76,13 +76,13 @@ function App() {
 
   const handleConvert = async () => {
     if (!file) return;
-    
+
     setError(null);
     setResult(null);
 
     try {
       let tagData;
-      
+
       // 1. Parsing Phase (Extract common data structure from file)
       if (['mct', 'dump', 'txt'].includes(actualInputFormat)) {
         const text = await file.text();
@@ -100,7 +100,7 @@ function App() {
       // 2. Generation Phase (Build target file format)
       let outBlob;
       let outExtension = `.${outputFormat}`;
-      
+
       if (['mct', 'dump', 'txt'].includes(outputFormat)) {
         const outText = generateMct(tagData);
         outBlob = new Blob([outText], { type: 'text/plain' });
@@ -115,12 +115,12 @@ function App() {
       // 3. Expose generated file for download
       const url = URL.createObjectURL(outBlob);
       const baseName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-      
-      setResult({ 
-        url, 
+
+      setResult({
+        url,
         filename: `${baseName}${outExtension}`
       });
-      
+
     } catch (err) {
       console.error('Conversion Error:', err);
       setError(err.message || 'Conversion failed. Please verify format compatibility.');
@@ -132,10 +132,10 @@ function App() {
       <header>
         <div className="title-container">
           <h1>NFC File Converter</h1>
-          <a 
-            href="https://google.com" 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            href="https://github.com/Lotverp/FlipperConvertMCT"
+            target="_blank"
+            rel="noopener noreferrer"
             className="github-link"
             aria-label="GitHub Repository"
           >
@@ -152,9 +152,9 @@ function App() {
         <div className="format-grid">
           <div className="form-group">
             <label htmlFor="inputFormat">Input Format</label>
-            <select 
-              id="inputFormat" 
-              value={inputFormat} 
+            <select
+              id="inputFormat"
+              value={inputFormat}
               onChange={(e) => setInputFormat(e.target.value)}
             >
               <option value="auto">Auto-detect from extension</option>
@@ -169,16 +169,16 @@ function App() {
 
           <div className="form-group">
             <label htmlFor="outputFormat">Output Format</label>
-            <select 
-              id="outputFormat" 
-              value={outputFormat} 
+            <select
+              id="outputFormat"
+              value={outputFormat}
               onChange={(e) => setOutputFormat(e.target.value)}
             >
               {OUTPUT_OPTIONS
                 .filter(opt => opt.value !== actualInputFormat)
                 .map(opt => (
                   <option key={opt.value} value={opt.value}>{opt.label}</option>
-              ))}
+                ))}
             </select>
           </div>
         </div>
@@ -186,7 +186,7 @@ function App() {
         {/* --- File Uploader --- */}
         <div className="form-group">
           <label>Upload File</label>
-          <div 
+          <div
             className={`drop-zone ${isDragging ? 'active' : ''}`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -197,10 +197,10 @@ function App() {
           >
             <p>{file ? file.name : 'Drag & drop a file here'}</p>
             <span>{file ? `${(file.size / 1024).toFixed(2)} KB` : 'or click to browse'}</span>
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              style={{ display: 'none' }} 
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
               onChange={handleFileChange}
               accept=".mct,.dump,.txt,.bin,.dmp,.nfc"
             />
@@ -208,9 +208,9 @@ function App() {
         </div>
 
         {/* --- Action Buttons & Status --- */}
-        <button 
-          className="convert-btn" 
-          onClick={handleConvert} 
+        <button
+          className="convert-btn"
+          onClick={handleConvert}
           disabled={!file}
         >
           Convert File

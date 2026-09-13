@@ -41,4 +41,4 @@ To run the converter locally on your machine:
 - **Vanilla CSS** for the custom responsive design
 
 ---
-*Based on the original python CLI converter scripts. Refactored into a universal web-app.*
+*Based on the original python CLI converter scripts. Refactored into a universal NFC File Converter.*
