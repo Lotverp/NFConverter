@@ -66,9 +66,17 @@ export function parseMct(textContent) {
   }
 
   const uid = uidSize === 7 ? block0.substring(0, 14) : block0.substring(0, 8);
-  const atqa = uidSize === 7 ? block0.substring(16, 20) : block0.substring(12, 16);
-  const sak = uidSize === 7 ? block0.substring(14, 16) : block0.substring(10, 12);
-  const cardType = guessMifareSizeBySak(sak);
+  let sakRaw = uidSize === 7 ? block0.substring(14, 16) : block0.substring(10, 12);
+  const cardType = guessMifareSizeBySak(sakRaw);
+
+  // Normalize ATQA and SAK for Flipper NFC format
+  let atqaRaw = uidSize === 7 ? block0.substring(16, 20) : block0.substring(12, 16);
+  const atqa = atqaRaw.substring(2, 4) + atqaRaw.substring(0, 2); // Reverse endianness
+
+  let sak = sakRaw;
+  if (cardType === "1K") sak = uidSize === 7 ? "88" : "08";
+  else if (cardType === "4K") sak = "18";
+  else if (cardType === "Mini") sak = "09";
 
   return { uid, atqa, sak, cardType, blocks };
 }
@@ -121,14 +129,14 @@ export function parseBin(buffer) {
   let cardType, blockCount, atqa, sak;
   if (size === 1024) {
     cardType = "1K"; blockCount = 64;
-    atqa = uidLength === 7 ? "4400" : "0400";
+    atqa = uidLength === 7 ? "0044" : "0004";
     sak = uidLength === 7 ? "88" : "08";
   } else if (size === 4096) {
     cardType = "4K"; blockCount = 256;
-    atqa = "0400"; sak = "18";
+    atqa = "0004"; sak = "18";
   } else if (size === 320) {
     cardType = "Mini"; blockCount = 20;
-    atqa = "0400"; sak = "09";
+    atqa = "0004"; sak = "09";
   } else {
     throw new Error(`Invalid size: ${size} bytes. Expected 320 (Mini), 1024 (1K), or 4096 (4K).`);
   }
